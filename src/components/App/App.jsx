@@ -91,9 +91,9 @@ class App extends React.Component {
         return <div className='chat-box'>
             <Messages list={this.state.messages}/>
             {this.state.dialog.map((item,idx) => (
-                <button onClick={this.handleBtnClick.bind(null,idx)} key={idx}>{item.question}</button>
+                <button onClick={() =>this.handleBtnClick(idx)} key={idx}>{item.question}</button>
             ))}
-            <button onClick={this.handleBtnClick.bind(null,4)}>Are you crazy machine?</button>
+            <button onClick={() =>this.handleBtnClick(4)}>Are you crazy machine?</button>
         </div>
     }
 }
