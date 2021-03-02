@@ -1,0 +1,9 @@
+body {
+    margin: 0;
+    background-color: #eee;
+}
+
+.chat-box {
+    margin: 10px 10%;
+    padding: 10px
+}
