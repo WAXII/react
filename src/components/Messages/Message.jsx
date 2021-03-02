@@ -1,5 +1,8 @@
+import React from 'react';
+
 const Message = (props) => {
-    return <div className='message'>{props.text}</div>
+    const {source,text} = props;
+    return <div className='message'><b>{source}: </b>{text}</div>
 };
 
 export {Message};
