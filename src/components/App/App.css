@@ -7,3 +7,21 @@ body {
     margin: 10px 10%;
     padding: 10px
 }
+
+.chat-list a {
+    display: block;
+}
+
+.chat-list button {
+    display: block;
+    text-align: left;
+}
+
+.ready-msgs {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.profile {
+    padding: 30px;
+}

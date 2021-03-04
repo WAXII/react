@@ -42,4 +42,9 @@ module.exports = {
             inject: 'body'
         })
     ],
+    devServer: {
+        port: 8081,
+        hot: true,
+        historyApiFallback: true,
+    }
 };
