@@ -1,8 +1,15 @@
 import React from 'react';
+import {Divider,ListItem,ListItemText} from '@material-ui/core';
 
 const Message = (props) => {
     const {source,text} = props;
-    return <div className='message'><b>{source}: </b>{text}</div>
+    return <>
+        <ListItem>
+            <ListItemText primary={source} secondary={text} />
+        </ListItem>
+        <Divider variant="middle" />
+    </>
+    
 };
 
 export {Message};
