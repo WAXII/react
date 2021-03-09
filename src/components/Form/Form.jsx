@@ -3,8 +3,8 @@ import {Button,TextField} from "@material-ui/core"
 import './Form.css'
 
 class Form extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       message: "",
     };
@@ -26,8 +26,10 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    console.log('sending');
+    if (this.state.message != "") {
+    this.props.addMsgFunc(this.state.message)
     this.setState({ message: '' });
+    }
   }
 
   render() {
