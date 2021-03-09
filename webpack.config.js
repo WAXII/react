@@ -1,50 +1,62 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: {
-        app: './src/index.js'
+        app: './src/index.js',
     },
     output: {
-        path: path.resolve(__dirname,'build','v1.01'),
+        path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
-        publicPath: '/build/v1.01/'
+        publicPath: '/',
     },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                include: path.resolve(__dirname,'src'),
+                include: path.resolve(__dirname, 'src'),
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
                     presets: [
                         '@babel/env',
-                        ['@babel/preset-react', {
-                            runtime: 'automatic'
-                        }]
-                    ]
-                }
+                        [
+                            '@babel/preset-react',
+                            {
+                                runtime: 'automatic',
+                            },
+                        ],
+                    ],
+                    plugins: [
+                        [
+                            '@babel/plugin-proposal-class-properties',
+                            { loose: true },
+                        ],
+                    ],
+                },
             },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
-            }
-        ]
+            },
+        ],
     },
     resolve: {
-        extensions: ['.js','.jsx'],
+        extensions: ['.js', '.jsx'],
     },
-    plugins: [ 
+    plugins: [
         new HtmlWebpackPlugin({
-            template: __dirname + "/index.html",
-            inject: 'body'
-        })
+            title: 'React App',
+            template: 'index.html',
+        }),
     ],
+    devtool: 'inline-source-map',
     devServer: {
-        port: 8081,
-        hot: true,
+        contentBase: path.join(__dirname, 'build'),
+        port: 8080,
         historyApiFallback: true,
-    }
+        hot: true,
+    },
 };

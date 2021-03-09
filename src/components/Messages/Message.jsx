@@ -1,15 +1,14 @@
-import React from 'react';
-import {Divider,ListItem,ListItemText} from '@material-ui/core';
+import './Message.css';
 
 const Message = (props) => {
-    const {source,text} = props;
-    return <>
-        <ListItem>
-            <ListItemText primary={source} secondary={text} />
-        </ListItem>
-        <Divider variant="middle" />
-    </>
-    
+    return (
+        <div
+            className={`message ${props.author === 'me' ? 'message-mine' : ''}`}
+        >
+            <div className='message__text'>{props.text}</div>
+            <div className='message__author'>{props.author}</div>
+        </div>
+    );
 };
 
-export {Message};
+export { Message };

@@ -1,19 +1,18 @@
-import {Switch,Route,Redirect} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import {NotFound} from '../NotFound';
-import {App} from '../App';
+import { Profile } from '../Profile';
+import { Layout } from '../Layout';
+import { NotFound } from '../NotFound';
+
 const Router = () => {
     return (
         <Switch>
-            <Route exact path="/">
-                <Redirect to="/profile" />
-            </Route>
-            <Route path="/chat:chatId" component={App}/>
-            <Route path="/profile" component={App}/>
+            <Route exact path='/' component={Layout} />
+            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/chat/:id' component={Layout} />
             <Route component={NotFound} />
         </Switch>
     );
-    
 };
 
-export {Router};
+export { Router };

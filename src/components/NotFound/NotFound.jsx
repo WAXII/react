@@ -1,6 +1,11 @@
-const NotFound = (props) => {
-    return <div>PageNotFound</div>
-    
+import './NotFound.css';
+
+const NotFound = () => {
+    return (
+        <div className='not-found'>
+            <h1>404</h1>
+        </div>
+    );
 };
 
-export {NotFound};
+export { NotFound };
