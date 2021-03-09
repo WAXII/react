@@ -20,12 +20,12 @@ class ChatLayout extends React.Component {
             <Chip
               label={item.question}
               onClick={() => this.props.handleBtnClick(idx)}
-            ></Chip>
+            />
           ))}
           <Chip
             label="Are you crazy machine?"
             onClick={() => this.props.handleBtnClick(4)}
-          ></Chip>
+          />
         </div>
         <Form addMsgFunc={this.props.publishMessage} />
       </Paper>

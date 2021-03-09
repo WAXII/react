@@ -80,7 +80,7 @@ class _App extends React.Component {
   }
 
   publishUserMessage(idx) {
-    var msgs = this.state.messages;
+    const {messages:msgs} = this.state;
     msgs[this.state.selectedChat] = [
       ...msgs[this.state.selectedChat],
       {
@@ -96,7 +96,7 @@ class _App extends React.Component {
   }
 
   publishBotAnswer(idx) {
-    var msgs = this.state.messages;
+    const {messages:msgs} = this.state;
     msgs[this.state.selectedChat] = [
       ...msgs[this.state.selectedChat],
       {
@@ -114,7 +114,7 @@ class _App extends React.Component {
     if (idx >= 0 && idx < this.state.dialog.length) {
       this.publishUserMessage(idx);
     } else {
-      var msgs = this.state.messages;
+      const {messages:msgs} = this.state;
       msgs[this.state.selectedChat] = [
         ...msgs[this.state.selectedChat],
         {
@@ -130,7 +130,7 @@ class _App extends React.Component {
   }
 
   publishMessage(message) {
-    var msgs = this.state.messages;
+    const {messages:msgs} = this.state;
     msgs[this.state.selectedChat] = [
       ...msgs[this.state.selectedChat],
       {

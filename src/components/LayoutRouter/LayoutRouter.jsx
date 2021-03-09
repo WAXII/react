@@ -2,7 +2,6 @@ import {Switch,Route} from 'react-router-dom';
 import {ChatLayout} from '../ChatLayout';
 import {ProfileLayout} from '../ProfileLayout';
 const LayoutRouter = (props) => {
-    console.log(props);
     return (
         <Switch>
             <Route path="/profile" component={ProfileLayout}/>
