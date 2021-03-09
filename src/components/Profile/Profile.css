@@ -3,3 +3,7 @@
     background-color: antiquewhite;
     padding: 15px 20px;
 }
+
+.profile input {
+    width: 100%;
+}
