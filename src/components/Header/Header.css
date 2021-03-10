@@ -1,18 +1,21 @@
 .header {
     display: flex;
     justify-content: space-around;
-
     padding: 10px 0;
     background-color: lightblue;
     color: #fff;
-
     text-transform: uppercase;
 }
 
 .menu-item {
+    display: inline-block;
     color: #fff;
     text-decoration: none;
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
 .menu-item:not(:last-child) {
-    margin-right: 10px;
+    border-right: 1px solid #fff;
+
 }

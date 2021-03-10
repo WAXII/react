@@ -3,26 +3,36 @@ import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import Send from '@material-ui/icons/Send';
 import { TextField, Icon, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { addChat } from '../../redux/actions/messageActions';
+
 import './ChatList.css';
 
-class ChatList extends Component {
+class _ChatList extends Component {
+    static propTypes = {
+        chats: PropTypes.array.isRequired,
+        addChat: PropTypes.func.isRequired,
+    };
+
     state = {
-        chats: ['chat 1', 'chat 2', 'chat 3'],
         chatName: '',
     };
 
     addChat = () => {
+        this.props.addChat(this.state.chatName);
         this.setState({
-            chats: [...this.state.chats, this.state.chatName],
             chatName: '',
         });
     };
 
     render() {
+        const { chats = []} = this.props;
         return (
             <div className='chat-list'>
                 <List>
-                    {this.state.chats.map((chat, index) => (
+                    {chats.map((chat, index) => (
                         <Link key={index} to={`/chat/${index}`}>
                             <ListItem button>
                                 <ListItemIcon>
@@ -60,5 +70,13 @@ class ChatList extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    chats: state.chat.chats,
+});
+
+const ChatList = compose(
+    connect(mapStateToProps, { addChat })
+)(_ChatList);
 
 export { ChatList };
