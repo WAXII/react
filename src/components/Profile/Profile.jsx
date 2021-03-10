@@ -4,15 +4,20 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { changeName } from "../../redux/actions/profileActions";
 import { TextField } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 class _Profile extends Component {
+  static propTypes = {
+    profileName: PropTypes.string.isRequired,
+    changeName: PropTypes.func.isRequired,
+  };
   state = {
     profileName: "",
   };
   setProfileName = (newName) => {
     this.props.changeName(this.state.profileName);
     this.setState({
-        profileName: "",
+      profileName: "",
     });
   };
   render() {
@@ -24,7 +29,7 @@ class _Profile extends Component {
           label="Enter new nickname and press ENTER"
           onChange={(event) =>
             this.setState({
-                profileName: event.target.value,
+              profileName: event.target.value,
             })
           }
           onKeyDown={(event) => {

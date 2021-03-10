@@ -3,7 +3,7 @@ import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import Send from '@material-ui/icons/Send';
 import { TextField, Icon, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { addChat } from '../../redux/actions/messageActions';
@@ -11,6 +11,11 @@ import { addChat } from '../../redux/actions/messageActions';
 import './ChatList.css';
 
 class _ChatList extends Component {
+    static propTypes = {
+        chats: PropTypes.array.isRequired,
+        addChat: PropTypes.func.isRequired,
+    };
+
     state = {
         chatName: '',
     };
