@@ -1,26 +1,16 @@
 import { Component, createRef } from 'react';
-import { TextField, Icon, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withStyles } from '@material-ui/core';
-// import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { TextField, Icon, IconButton } from '@material-ui/core';
 
-import { sendMessage } from '../../redux/actions/messageActions';
 import { Message } from './Message';
-
-const styles = {
-    root: {
-        color: 'black',
-    },
-};
+import { sendMessage } from '../../actions/messageAction';
 
 class _Messages extends Component {
     static propTypes = {
         currentChat: PropTypes.string,
         messages: PropTypes.object.isRequired,
         sendMessage: PropTypes.func.isRequired,
-        classes: PropTypes.object,
     };
 
     state = {
@@ -28,43 +18,33 @@ class _Messages extends Component {
     };
 
     fieldRef = createRef();
+    inputRef = createRef();
 
     addMessage = (msg = '', author = '') => {
-        const chatId = this.props.currentChat;
-
-        const newMessage = msg.length ? msg : this.state.textMessage;
+        const { currentChat } = this.props;
+        const message = msg.length ? msg : this.state.textMessage;
         const currentAuthor = author.length ? author : 'me';
+        message && this.props.sendMessage(message, currentAuthor, currentChat);
 
-        (msg.length || this.state.textMessage) &&
-            this.props.sendMessage(newMessage, currentAuthor, chatId);
+        !author.length &&
+            this.setState({
+                textMessage: '',
+            });
 
-        this.setState({
-            textMessage: '',
-        });
+        this.inputRef.current.focus();
     };
 
-    componentDidUpdate(prevProps) {
-        const chatId = this.props.currentChat;
-
-        if (
-            prevProps.messages[chatId]?.length !==
-                this.props.messages[chatId]?.length &&
-            this.props.messages[chatId]?.length % 2 === 1
-        ) {
-            setTimeout(() => {
-                this.addMessage('I am just robot', 'robot');
-            }, 1000);
-        }
-
+    componentDidUpdate() {
         this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
     }
 
     render() {
         const { messages = {}, currentChat: chatId } = this.props;
+        // const chatId = this.props.currentChat;
 
         return (
             <div className='message-field'>
-                {this.props.currentChat && (
+                {chatId && (
                     <>
                         <div className='messages' ref={this.fieldRef}>
                             {messages[chatId] &&
@@ -74,6 +54,7 @@ class _Messages extends Component {
                         </div>
                         <div className='message-new'>
                             <TextField
+                                inputRef={this.inputRef}
                                 value={this.state.textMessage}
                                 label='New message'
                                 onChange={(event) =>
@@ -106,12 +87,6 @@ const mapStateToProps = (state) => ({
     messages: state.chat.messages,
 });
 
-// const mapDispatchToProps = (dispatch) =>
-//     bindActionCreators({ sendMessage }, dispatch);
-
-const Messages = compose(
-    withStyles(styles),
-    connect(mapStateToProps, { sendMessage })
-)(_Messages);
+const Messages = connect(mapStateToProps, { sendMessage })(_Messages);
 
 export { Messages };

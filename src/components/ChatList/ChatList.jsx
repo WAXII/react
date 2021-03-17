@@ -1,14 +1,13 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import Send from '@material-ui/icons/Send';
 import { TextField, Icon, IconButton } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { addChat } from '../../redux/actions/messageActions';
-
 import './ChatList.css';
+
+import { addChat } from '../../actions/chatActions';
 
 class _ChatList extends Component {
     static propTypes = {
@@ -28,7 +27,8 @@ class _ChatList extends Component {
     };
 
     render() {
-        const { chats = []} = this.props;
+        const { chats } = this.props;
+
         return (
             <div className='chat-list'>
                 <List>
@@ -75,8 +75,6 @@ const mapStateToProps = (state) => ({
     chats: state.chat.chats,
 });
 
-const ChatList = compose(
-    connect(mapStateToProps, { addChat })
-)(_ChatList);
+const ChatList = connect(mapStateToProps, { addChat })(_ChatList);
 
 export { ChatList };

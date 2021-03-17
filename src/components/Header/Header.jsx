@@ -1,32 +1,34 @@
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import './Header.css';
 
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-
-const _Header = (props) => {
+const _Header = ({ userName }) => {
     return (
         <header className='header'>
             <span>Telegram 2040</span>
+            {userName ? <div>{userName}</div> : null}
             <div className='menu'>
                 <Link to='/' className='menu-item'>
                     Chats
                 </Link>
                 <Link to='/profile' className='menu-item'>
-                    Profile ({props.profileName})
+                    Profile
                 </Link>
             </div>
         </header>
     );
 };
 
+_Header.propTypes = {
+    userName: PropTypes.string,
+};
+
 const mapStateToProps = (state) => ({
-    profileName: state.profile.profileName,
+    userName: state.profile.userName,
 });
 
-const Header = compose(
-    connect(mapStateToProps)
-)(_Header);
+const Header = connect(mapStateToProps)(_Header);
 
 export { Header };

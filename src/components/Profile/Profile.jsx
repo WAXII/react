@@ -1,52 +1,59 @@
-import "./Profile.css";
-import { Component } from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { changeName } from "../../redux/actions/profileActions";
-import { TextField } from "@material-ui/core";
-import PropTypes from "prop-types";
+import React from 'react';
+import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
 
-class _Profile extends Component {
-  static propTypes = {
-    profileName: PropTypes.string.isRequired,
-    changeName: PropTypes.func.isRequired,
-  };
-  state = {
-    profileName: "",
-  };
-  setProfileName = (newName) => {
-    this.props.changeName(this.state.profileName);
-    this.setState({
-      profileName: "",
-    });
-  };
-  render() {
-    return (
-      <div className="profile">
-        <h1>Hello from Profile</h1>
-        <TextField
-          value={this.state.profileName}
-          label="Enter new nickname and press ENTER"
-          onChange={(event) =>
+import { setName } from '../../actions/profileActions';
+import './Profile.css';
+
+class _Profile extends React.Component {
+    static propTypes = {
+        userName: PropTypes.string.isRequired,
+        setName: PropTypes.func.isRequired,
+    };
+
+    state = {
+        inputName: '',
+    };
+
+    handleChange = (e) => {
+        this.setState({ inputName: e.target.value });
+    };
+
+    handleKey = (e) => {
+        if (e.key === 'Enter') {
+            this.props.setName(this.state.inputName);
             this.setState({
-              profileName: event.target.value,
-            })
-          }
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              this.setProfileName(event.target.value);
-            }
-          }}
-        />
-      </div>
-    );
-  }
+                inputName: '',
+            });
+        }
+    };
+
+    render() {
+        const { inputName } = this.state;
+        const { userName } = this.props;
+
+        return (
+            <div className='profile'>
+                <h1>Hello from Profile</h1>
+                <h2>{userName ? `Имя: ${userName}` : 'Имя не задано'}</h2>
+                <div>
+                    <TextField
+                        label='Задать имя'
+                        value={inputName}
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleKey}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({
-  profileName: state.profile.profileName,
+    userName: state.profile.userName,
 });
 
-const Profile = compose(connect(mapStateToProps, { changeName }))(_Profile);
+const Profile = connect(mapStateToProps, { setName })(_Profile);
 
 export { Profile };
